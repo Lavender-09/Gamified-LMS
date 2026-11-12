@@ -1,0 +1,368 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="moprofmaster.master.cs" Inherits="MoProf_bse25aft1_250429135.moprofmaster" %>
+
+<%@ Register TagName="adminlogin" TagPrefix="user" Src="~/logincontrols.ascx" %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MoProf - Learning Management System</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="icomoon/icomoon.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+        <!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+</head>
+<asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+<body>
+<form runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
+
+    <!-- navbar start -->
+
+    <nav class="main-menu d-flex navbar navbar-expand-lg p-2 py-3 p-lg-4 py-lg-4 ">
+        <div class="container-fluid">
+            <div class="main-logo d-lg-none">
+                <a href="<%=ResolveClientUrl("~/default") %>" class="navbar-brand ml-lg-3">
+                    <h1 class="m-0 text-uppercase text-primary"><i class="fa fa-book-reader mr-3"></i>MoProf</h1>
+                </a>
+            </div>
+
+                    <ul class="navbar-nav menu-list list-unstyled align-items-lg-center d-flex gap-md-3 mb-0">
+                        <li class="nav-item" id="hyhome">
+
+                            <asp:HyperLink CssClass="nav-link mx-2 active"
+    runat="server" ID="hydefault" Visible="true"
+    NavigateUrl="~/default.aspx">Home</asp:HyperLink>
+                        </li>
+
+                        <asp:Panel ID="pnlStudents" runat="server" CssClass="nav navbar-nav" Visible="false">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="pages"
+                                data-bs-toggle="dropdown" aria-expanded="false">Student Pages</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+                                <li><a href="<%=ResolveClientUrl("~/viewtutors") %>" class="dropdown-item">List of Tutors</a></li>
+                                <li><a class="dropdown-item" href="<%=ResolveClientUrl("~/searchtutor") %>">Search For Tutors</a></li>
+                            </ul>
+                        </li> 
+                            
+                            <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="courses"
+                                data-bs-toggle="dropdown" aria-expanded="false">Courses</a>
+                            <ul class="dropdown-menu" aria-labelledby="courses">
+                                <li><a href="<%=ResolveClientUrl("~/courses") %>" class="dropdown-item">Course</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/searchsubject") %>" class="dropdown-item">Search for Subject</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/categories") %>" class="dropdown-item">Course Categories</a></li>
+                            </ul>
+                        </li>
+
+                        </asp:Panel>
+
+                        
+                        <asp:Panel ID="pnlTutors" runat="server" CssClass="nav navbar-nav" Visible="false">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="shop"
+                                data-bs-toggle="dropdown" aria-expanded="false">Tutor Pages</a>
+                            <ul class="dropdown-menu" aria-labelledby="shop">
+                                <li><a href="<%=ResolveClientUrl("~/categories") %>" class="dropdown-item">Course Categories</a></li>
+                            </ul>
+                        </li>
+
+                        </asp:Panel>
+
+                    </ul>
+                    <!--START OF PANELS -->
+
+                    <!-- Menu to view user profile -->
+                    <asp:Panel runat="server" class="nav navbar-nav" ID="pnlprofile"
+                        Visible="false">
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle"
+                                data-bs-toggle="dropdown" role="button" aria-haspopup="true" ariaexpanded="
+false">User Info<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <asp:HyperLink CssClass="dropdown-item"
+                                        runat="server" ID="hyuser"
+                                        NavigateUrl="~/profile.aspx">View Profile</asp:HyperLink></li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+    <asp:HyperLink CssClass="dropdown-item"
+        runat="server" ID="hydash" Visible="false"
+        NavigateUrl="~/dashboard.aspx">Dashboard</asp:HyperLink></li>
+<li role="separator" class="divider"></li>
+                                    <asp:HyperLink CssClass="dropdown-item"
+        runat="server" ID="hytutdash" Visible="false"
+        NavigateUrl="~/tutordashboard.aspx">Tutor Dashboard</asp:HyperLink></li>
+<li role="separator" class="divider"></li>
+                                                               
+                                <li>
+                                    <asp:LinkButton ID="lnkdeac" runat="server" CssClass="btn btn-outline-danger" OnClientClick="return confirm('Are you sure you want to deactivate your account? You will be logged out and will have to reactivate to continue using.')" OnClick="lnkdeac_Click">Deactivate Account</asp:LinkButton>
+                                    </li>
+                            </ul>
+                        </li>
+                    </asp:Panel>
+                    <!--menu to manage users-->
+                    <asp:Panel runat="server" class="nav navbar-nav" ID="pnlmanagemov"
+                        Visible="false">
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle"
+                                data-bs-toggle="dropdown" role="button" aria-haspopup="true" ariaexpanded="
+false">Site Management<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="<%=
+ResolveClientUrl("~/userview") %>">View Users</a></li>
+                                                                <li><a class="dropdown-item" href="<%=
+ResolveClientUrl("~/searchuser") %>">Search For Users</a></li>
+                                                                                                <li><a class="dropdown-item" href="<%=
+ResolveClientUrl("~/admindashboard") %>">Admin Dashboard</a></li>
+                            </ul>
+
+                        </li>
+                    </asp:Panel>
+                    
+                    <div class="navbar-collapse flex-grow-1 text-right" id="myNavbar">
+                        <ul class="navbar-nav ms-auto flex-nowrap">
+
+                    <asp:Panel runat="server" ID="pnllog">
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle"
+                                        data-bs-toggle="dropdown" role="button" aria-haspopup="true"
+                                        aria-expanded="false">Login<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a class="dropdown-item"
+                                                href="<%= ResolveClientUrl("~/login") %>">User</a></li>
+                                    </ul>
+                                </li>
+                            </asp:Panel>
+
+                     <li class="nav-item"><a class="nav-link" runat="server" id="hyregister"
+                                href="~/register">Register</a></li>
+                        </ul>
+                    </div>
+
+                    <asp:Panel runat="server" ID="lgregis">
+                        <asp:Label runat="server" ID="lbllgged"></asp:Label>
+                        <asp:Button runat="server" ID="btnlgout" Text="Log out"
+                            CssClass="btn btn-outline-info" Visible="false" OnClick="btnlgout_Click" />
+                    </asp:Panel>
+
+                    <!-- END OF PANELS -->
+
+                </div>
+        <div class="container-fluid d-lg-none">
+            <div class="d-flex  align-items-end mt-3">
+                <ul class="d-flex  align-items-center list-unstyled m-0">
+                    <li>
+                        <a href="account.html" class="me-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px">
+                                <i class="fas fa-user-circle"></i>
+                            </svg>
+                        </a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- navbar end -->
+
+
+    <asp:ContentPlaceHolder ID="maincontent" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+
+    <!-- start footer -->
+
+    <footer id="footer">
+        <div class="container padding-medium ">
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 my-3">
+                    <div class="footer-menu">
+                        <a href="default.aspx" class="navbar-brand ml-lg-3">
+                            <h1 class="m-0 text-uppercase text-primary"><i class="fa fa-book-reader mr-3"></i>MoProf</h1>
+                        </a>
+                        <div class="social-links mt-4">
+                            <ul class="d-flex list-unstyled ">
+                                <li class="me-4">
+                                    <a href="#">
+                                        <svg class="social-icon" width="30" height="30" aria-hidden="true">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="me-4">
+                                    <a href="#">
+                                        <svg class="social-icon" width="30" height="30" aria-hidden="true">
+                                            <i class="fab fa-twitter"></i>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="me-4">
+                                    <a href="#">
+                                        <svg class="social-icon" width="30" height="30" aria-hidden="true">
+                                            <i class="fab fa-instagram"></i>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="me-4">
+                                    <a href="#">
+                                        <svg class="social-icon" width="30" height="30" aria-hidden="true">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="me-4">
+                                    <a href="#">
+                                        <svg class="social-icon" width="30" height="30" aria-hidden="true">
+                                            <i class="fab fa-youtube"></i>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2 my-3">
+                    <div class="footer-menu">
+                        <h5 class=" fw-bold mb-4">Quick Links</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item mb-2">
+                                <a href="~/default" class="footer-link">Home</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">About us</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Courses</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Blogs</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2 my-3">
+                    <div class="footer-menu">
+                        <h5 class=" fw-bold mb-4">About</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">How It Works</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Pricing</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Promotion</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Affilation</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2 my-3">
+                    <div class="footer-menu">
+                        <h5 class=" fw-bold mb-4">Help Center</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Payments</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">FAQs</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Checkout</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Other</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2 my-3">
+                    <div class="footer-menu">
+                        <h5 class=" fw-bold mb-4">Contact Us</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">contact@yourcompany</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">+110 4587 2445</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">New York, USA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="justify-content-center">
+
+                    <asp:HyperLink ID="hyadminlogin" NavigateUrl="~/adminlogin.aspx" CssClass="link-primary text-decoration-underline" runat="server">Admin Login</asp:HyperLink>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- start footer bottom -->
+
+    <div id="footer-bottom">
+        <hr class="text-black-50">
+        <div class="container">
+            <div class="row py-3">
+                <div class="col-md-6 copyright">
+                    <p>© 2024 TemplatesJungle. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        Free HTML Template by: <a href="https://templatesjungle.com/" target="_blank" class="fw-bold">TemplatesJungle</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end footer -->
+
+    </form>
+
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+</body>
+
+</html>
